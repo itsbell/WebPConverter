@@ -1,0 +1,58 @@
+﻿  ConvertManager.cpp
+C:\libjpeg-turbo64\include\turbojpeg.h(721,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\cuda_runtime_api.h(11752,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\cuda_runtime_api.h(11752,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\cuda_runtime_api.h(11752,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(1330,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\driver_types.h(3139,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\cuda_runtime_api.h(11752,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\include\cuda_runtime_api.h(11752,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Glimproject\WebPTest\WebPConverter\ConvertManager.cpp(110,17): warning C4101: 'nStride' :참조되지 않은 지역 변수입니다.
+  (소스 파일 '/ConvertManager.cpp'을(를) 컴파일하는 중)
+  
