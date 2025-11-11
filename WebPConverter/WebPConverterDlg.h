@@ -41,4 +41,6 @@ private:
 	float m_fQuality;
 public:
 	afx_msg void OnBnClickedBtnWebpConfigApply();
+	afx_msg void OnBnClickedRadioDecodeTurboJpeg();
+	afx_msg void OnBnClickedRadioDecodeNvJpeg();
 };
