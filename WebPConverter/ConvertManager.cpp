@@ -158,8 +158,11 @@ void ConvertManager::Convert_CPU()
                 // 정수산술로 반올림 처리 ((y*219 + 127) / 255)
                 int y_limited = (y * 219 + 127) / 255;
                 y_limited += 16;
-                if (y_limited < 0) y_limited = 0;
-                if (y_limited > 255) y_limited = 255;
+                if (y_limited < 0)
+                    y_limited = 0;
+                if (y_limited > 255)
+                    y_limited = 255;
+
                 pszYPlane[p] = static_cast<uint8_t>(y_limited);
             }
 
@@ -174,8 +177,10 @@ void ConvertManager::Convert_CPU()
             {
                 std::cerr << "Error: UV plane 할당 실패\n";
                 std::free(pszYPlane);
-                if (u_plane) std::free(u_plane);
-                if (v_plane) std::free(v_plane);
+                if (u_plane)
+                    std::free(u_plane);
+                if (v_plane)
+                    std::free(v_plane);
                 break;
             }
             // 중성값(128)로 채움 (이미 limited-range에서는 128이 여전히 중성값)
@@ -292,7 +297,12 @@ bool DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaSt
 {
     nvjpegChromaSubsampling_t subsampling;
     int nComponents;
-    if (nvjpegGetImageInfo(handle, jpegData, jpegSize, &nComponents, &subsampling, &width, &height) != NVJPEG_STATUS_SUCCESS)
+
+    // nvjpegGetImageInfo 는 width/height "배열" 필요.
+    int widths[NVJPEG_MAX_COMPONENT] = { 0 };
+    int heights[NVJPEG_MAX_COMPONENT] = { 0 };
+
+    if (nvjpegGetImageInfo(handle, jpegData, jpegSize, &nComponents, &subsampling, widths, heights) != NVJPEG_STATUS_SUCCESS)
     {
         std::cerr << "nvJPEG GetImageInfo failed\n";
         return false;
@@ -305,23 +315,41 @@ bool DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaSt
         return false;
     }
 
+    width = widths[0];
+    height = heights[0];
+
     size_t ySize = static_cast<size_t>(width) * static_cast<size_t>(height);
-    *outYPlane = static_cast<uint8_t*>(std::malloc(ySize));
-    if (!*outYPlane) return false;
+
+    // *outYPlane = static_cast<uint8_t*>(std::malloc(ySize));
+    // if (!*outYPlane)
+    //     return false;
+
+    // pinned memory 할당
+    if (cudaMallocHost(outYPlane, ySize) != cudaSuccess)
+    {
+        std::cerr << "cudaMallocHost failed\n";
+        return false;
+    }
 
     nvjpegImage_t nvImage;
     memset(&nvImage, 0, sizeof(nvImage));
 
     nvImage.pitch[0] = width;
     uint8_t* d_yPlane = nullptr;
-    cudaMalloc((void**)&d_yPlane, ySize);
+    if (cudaMalloc((void**)&d_yPlane, ySize) != cudaSuccess)
+    {
+        // std::free(*outYPlane);
+        cudaFreeHost(*outYPlane);
+        return false;
+    }
     nvImage.channel[0] = d_yPlane;
 
     if (nvjpegDecode(handle, state, jpegData, jpegSize, NVJPEG_OUTPUT_Y, &nvImage, stream) != NVJPEG_STATUS_SUCCESS)
     {
         std::cerr << "nvJPEG decode failed\n";
         cudaFree(d_yPlane);
-        std::free(*outYPlane);
+        // std::free(*outYPlane);
+        cudaFreeHost(*outYPlane);
         *outYPlane = nullptr;
         return false;
     }
@@ -411,7 +439,10 @@ void ConvertManager::Convert_GPU()
             if (!WebPPictureInit(&picture))
             {
                 std::cerr << "WebPPictureInit failed\n";
-                std::free(yPlane); std::free(uPlane); std::free(vPlane);
+                // std::free(yPlane);
+                cudaFreeHost(yPlane);
+                std::free(uPlane);
+                std::free(vPlane);
                 break;
             }
             picture.width = width;
@@ -436,7 +467,10 @@ void ConvertManager::Convert_GPU()
                 std::cerr << "WebPConfigInit failed\n";
                 WebPMemoryWriterClear(&writer);
                 WebPPictureFree(&picture);
-                std::free(yPlane); std::free(uPlane); std::free(vPlane);
+                // std::free(yPlane);
+                cudaFreeHost(yPlane);
+                std::free(uPlane);
+                std::free(vPlane);
                 break;
             }
             config.lossless = 0;
@@ -447,7 +481,10 @@ void ConvertManager::Convert_GPU()
                 std::cerr << "WebPConfig validation failed\n";
                 WebPMemoryWriterClear(&writer);
                 WebPPictureFree(&picture);
-                std::free(yPlane); std::free(uPlane); std::free(vPlane);
+                // std::free(yPlane);
+                cudaFreeHost(yPlane);
+                std::free(uPlane);
+                std::free(vPlane);
                 break;
             }
 
@@ -479,7 +516,10 @@ void ConvertManager::Convert_GPU()
 
             WebPMemoryWriterClear(&writer);
             WebPPictureFree(&picture);
-            std::free(yPlane); std::free(uPlane); std::free(vPlane);
+            // std::free(yPlane);
+            cudaFreeHost(yPlane);
+            std::free(uPlane);
+            std::free(vPlane);
 
             m_durationDecode = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
             TRACE("decode time: %lld ms\n", m_durationDecode.count());
