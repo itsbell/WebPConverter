@@ -21,6 +21,7 @@ CWebPConverterDlg::CWebPConverterDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_WEBPCONVERTER_DIALOG, pParent)
 	, m_nLoadMode(FALSE)
 	, m_fQuality(0)
+	, m_nJpegDecodeModule(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -32,6 +33,7 @@ void CWebPConverterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_LOG, m_listLog);
 	DDX_Text(pDX, IDC_EDIT_WEBP_CONFIG_QUALITY, m_fQuality);
 	DDV_MinMaxInt(pDX, m_fQuality, 0, 100);
+	DDX_Radio(pDX, IDC_RADIO_DECODE_CPU, m_nJpegDecodeModule);
 }
 
 BEGIN_MESSAGE_MAP(CWebPConverterDlg, CDialogEx)
@@ -41,6 +43,8 @@ BEGIN_MESSAGE_MAP(CWebPConverterDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_LOAD, &CWebPConverterDlg::OnBnClickedBtnLoad)
 	ON_BN_CLICKED(IDC_BTN_CONVERT, &CWebPConverterDlg::OnBnClickedBtnConvert)
 	ON_BN_CLICKED(IDC_BTN_WEBP_CONFIG_APPLY, &CWebPConverterDlg::OnBnClickedBtnWebpConfigApply)
+	ON_BN_CLICKED(IDC_RADIO_DECODE_TURBO_JPEG, &CWebPConverterDlg::OnBnClickedRadioDecodeTurboJpeg)
+	ON_BN_CLICKED(IDC_RADIO_DECODE_NV_JPEG, &CWebPConverterDlg::OnBnClickedRadioDecodeNvJpeg)
 END_MESSAGE_MAP()
 
 
@@ -137,4 +141,14 @@ void CWebPConverterDlg::OnBnClickedBtnWebpConfigApply()
 {
 	UpdateData(TRUE);
 	CONVERT_MGR->SetQuality(m_fQuality);
+}
+
+void CWebPConverterDlg::OnBnClickedRadioDecodeTurboJpeg()
+{
+	CONVERT_MGR->SetJpegDecodeModule(TURBO_JPEG);
+}
+
+void CWebPConverterDlg::OnBnClickedRadioDecodeNvJpeg()
+{
+	CONVERT_MGR->SetJpegDecodeModule(NV_JPEG);
 }

@@ -36,6 +36,7 @@ public:
 	afx_msg void OnBnClickedBtnConvert();
 private:
 	int m_nLoadMode;
+	int m_nJpegDecodeModule;
 	CListBox m_listLog;
 	float m_fQuality;
 public:

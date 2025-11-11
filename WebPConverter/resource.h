@@ -9,13 +9,14 @@
 #define IDC_BTN_LOAD                    1000
 #define IDC_BTN_CONVERT                 1001
 #define IDC_RADIO_DECODE_CPU            1002
+#define IDC_RADIO_DECODE_TURBO_JPEG     1002
 #define IDC_RADIO_DECODE_GPU            1003
+#define IDC_RADIO_DECODE_NV_JPEG        1003
 #define IDC_RADIO_LOAD_FILE             1005
 #define IDC_RADIO_LOAD_FOLDER           1006
 #define IDC_STATIC_LOAD_LIST            1006
 #define IDC_LIST_LOG                    1007
 #define IDC_EDIT_WEBP_CONFIG_QUALITY    1008
-#define IDC_BUTTON1                     1009
 #define IDC_BTN_WEBP_CONFIG_APPLY       1009
 
 // Next default values for new objects

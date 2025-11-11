@@ -69,8 +69,9 @@ void ConvertManager::Convert()
 {
     if (m_eJpegDecodeModule == TURBO_JPEG)
         Convert_CPU();
-    else // NV_JPEG
+    else if(m_eJpegDecodeModule == NV_JPEG)
         Convert_GPU();
+    else {}
 }
 
 void ConvertManager::Convert_CPU()
