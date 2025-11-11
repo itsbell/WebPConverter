@@ -2,7 +2,6 @@
 #include "ConvertManager.h"
 #include "Common.h"
 #include <webp/encode.h>  // libwebp 인코더 (WebPEncodeRGB, WebPFree 등)
-#include <nvjpeg.h>
 #include <cuda_runtime.h>
 #include <afxdlgs.h>
 

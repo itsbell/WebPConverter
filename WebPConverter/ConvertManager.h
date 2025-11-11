@@ -2,6 +2,7 @@
 
 #include "TemplateManager.h"
 #include <vector>
+#include <nvjpeg.h>
 #include <turbojpeg.h>    // libjpeg-turbo TurboJPEG API
 
 #define CONVERT_MGR ConvertManager::GetInstance()
@@ -45,6 +46,7 @@ public:
     void Convert();
     void Convert_CPU();
     void Convert_GPU();
+    bool DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaStream_t stream, const uint8_t* jpegData, size_t jpegSize, uint8_t** outYPlane, int& width, int& height);
 
     void SetJpegDecodeModule(JPEG_DECODE_MODULE val) { m_eJpegDecodeModule = val; }
     void SetDecodeColor(DECODE_COLOR val) { m_eDecodeColor = val; }
