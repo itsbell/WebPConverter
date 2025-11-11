@@ -105,6 +105,8 @@ void ConvertManager::Convert_CPU()
                 break;
             }
 
+            startTime = std::chrono::high_resolution_clock::now();
+
             // 2) 헤더 파싱
             uint8_t* pszRgbBuffer = nullptr;
             int nWidth = 0, nHeight = 0, nSubSampling = 0, nColorSpace = 0;
@@ -140,7 +142,6 @@ void ConvertManager::Convert_CPU()
                 std::cerr << "Error: Y_plane 할당 실패\n";
                 break;
             }
-            startTime = std::chrono::high_resolution_clock::now();
 
             if (tjDecompress2(tj, vecJpegData.data(), static_cast<unsigned long>(vecJpegData.size()), pszYPlane, nWidth, nYStride, nHeight, TJPF_GRAY, 0) != 0)
             {
@@ -158,8 +159,10 @@ void ConvertManager::Convert_CPU()
                 // 정수산술로 반올림 처리 ((y*219 + 127) / 255)
                 int y_limited = (y * 219 + 127) / 255;
                 y_limited += 16;
+                
                 if (y_limited < 0)
                     y_limited = 0;
+
                 if (y_limited > 255)
                     y_limited = 255;
 
@@ -293,8 +296,12 @@ bool InitNvJpeg(nvjpegHandle_t& handle, nvjpegJpegState_t& state, cudaStream_t& 
     return true;
 }
 
-bool DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaStream_t stream, const uint8_t* jpegData, size_t jpegSize, uint8_t** outYPlane, int& width, int& height)
+bool ConvertManager::DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaStream_t stream, const uint8_t* jpegData, size_t jpegSize, uint8_t** outYPlane, int& width, int& height)
 {
+    std::chrono::time_point<std::chrono::high_resolution_clock> startTime, endTime;
+    
+    startTime = std::chrono::high_resolution_clock::now();
+
     nvjpegChromaSubsampling_t subsampling;
     int nComponents;
 
@@ -358,13 +365,21 @@ bool DecodeGrayJpegNvJpeg(nvjpegHandle_t handle, nvjpegJpegState_t state, cudaSt
     cudaStreamSynchronize(stream);
     cudaFree(d_yPlane);
 
+    endTime = std::chrono::high_resolution_clock::now();
+    m_durationDecode = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+
     // full-range -> limited-range
     for (size_t i = 0; i < ySize; ++i)
     {
         int y = (*outYPlane)[i];
         int y_limited = (y * 219 + 127) / 255 + 16;
-        if (y_limited < 0) y_limited = 0;
-        if (y_limited > 255) y_limited = 255;
+
+        if (y_limited < 0)
+            y_limited = 0;
+
+        if (y_limited > 255)
+            y_limited = 255;
+
         (*outYPlane)[i] = static_cast<uint8_t>(y_limited);
     }
 
@@ -403,7 +418,6 @@ void ConvertManager::Convert_GPU()
     {
         do
         {
-            std::chrono::time_point<std::chrono::high_resolution_clock> startTime, endTime;
             std::string strInPath = std::string(CT2A(m_vecImgPathList[i]));
             std::string strOutPath;
             int nPos = m_vecImgPathList[i].ReverseFind('.');
@@ -421,13 +435,11 @@ void ConvertManager::Convert_GPU()
             // nvJPEG decode
             uint8_t* yPlane = nullptr;
             int width = 0, height = 0;
-            startTime = std::chrono::high_resolution_clock::now();
             if (!DecodeGrayJpegNvJpeg(nvHandle, nvState, nvStream, vecJpegData.data(), vecJpegData.size(), &yPlane, width, height))
             {
                 std::cerr << "nvJPEG decode failed: " << strInPath << "\n";
                 break;
             }
-            endTime = std::chrono::high_resolution_clock::now();
 
             // UV plane 준비
             uint8_t* uPlane = nullptr;
@@ -521,7 +533,6 @@ void ConvertManager::Convert_GPU()
             std::free(uPlane);
             std::free(vPlane);
 
-            m_durationDecode = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
             TRACE("decode time: %lld ms\n", m_durationDecode.count());
 
         } while (false);
